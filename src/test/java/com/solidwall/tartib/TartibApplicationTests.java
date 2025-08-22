@@ -1,0 +1,13 @@
+package com.solidwall.tartib;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class TartibApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}

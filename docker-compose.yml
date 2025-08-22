@@ -1,0 +1,42 @@
+version: "3"
+
+volumes:
+  tartib-db1:
+
+networks:
+  prod_network:
+    driver: bridge
+
+services:
+
+  tartib-db:
+    image: postgres:latest
+    container_name: tartib_db
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: tartib_db
+    ports:
+      - '6544:5432'
+    volumes:
+      - tartib-db1:/var/lib/postgresql/data
+      - type: tmpfs
+        target: /dev/shm
+        tmpfs:
+          size: 134217728 # 128*2^20 bytes = 128Mb
+    networks:
+      - prod_network
+
+  tartib-server:
+    image: tartib:service
+    container_name: tartib_service
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile.prod
+    ports:
+      - 5100:8080
+    networks:
+      - prod_network

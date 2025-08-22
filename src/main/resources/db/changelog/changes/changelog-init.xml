@@ -1,0 +1,1338 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="Abdou (generated)" id="1730726137924-1">
+        <createTable tableName="funding_tranches">
+            <column name="amount" type="FLOAT4"/>
+            <column name="disbursement" type="INTEGER"/>
+            <column name="year" type="date"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="funding_tranches_pkey"/>
+            </column>
+            <column name="project_plan_id" type="BIGINT"/>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="title" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-2">
+        <createTable tableName="project_logic">
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="project_logic_pkey"/>
+            </column>
+            <column name="project_identity_id" type="BIGINT"/>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="document_cadre" type="TEXT"/>
+            <column name="document_plan_travail" type="TEXT"/>
+            <column name="general_objective" type="TEXT"/>
+            <column name="results" type="TEXT"/>
+            <column name="specific_objective" type="TEXT"/>
+            <column name="year_end" type="TEXT"/>
+            <column name="year_start" type="TEXT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-3">
+        <createTable tableName="project_plan">
+            <column name="cout_dinars" type="BIGINT"/>
+            <column name="cout_totale" type="BIGINT"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="project_plan_pkey"/>
+            </column>
+            <column name="montant_annuel" type="BIGINT"/>
+            <column name="project_identity_id" type="BIGINT"/>
+            <column name="taux_echange" type="BIGINT"/>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="observation" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-4">
+        <createTable tableName="project_strategy">
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="project_strategy_pkey"/>
+            </column>
+            <column name="pnd_axis_id" type="BIGINT"/>
+            <column name="pnd_id" type="BIGINT"/>
+            <column name="project_identity_id" type="BIGINT"/>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="local_pnd" type="TEXT"/>
+            <column name="objective" type="TEXT"/>
+            <column name="politique_axe" type="VARCHAR(255)"/>
+            <column name="politique_name" type="VARCHAR(255)"/>
+            <column name="reference" type="TEXT"/>
+            <column name="terrority" type="TEXT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-5">
+        <createTable tableName="project_study">
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="project_study_pkey"/>
+            </column>
+            <column name="project_identity_id" type="BIGINT"/>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-6">
+        <createTable tableName="project_zone">
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="project_zone_pkey"/>
+            </column>
+            <column name="project_identity_id" type="BIGINT"/>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fonction_statut" type="VARCHAR(255)"/>
+            <column name="justification" type="VARCHAR(255)"/>
+            <column name="observation" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-7">
+        <createTable tableName="project_identity_districs">
+            <column name="project_identity_entity_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="districs_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-8">
+        <createTable tableName="project_identity_districts">
+            <column name="project_identity_entity_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="districts_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-9">
+        <addUniqueConstraint columnNames="project_plan_id" constraintName="funding_tranches_project_plan_id_key" tableName="funding_tranches"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-10">
+        <addUniqueConstraint columnNames="project_identity_id" constraintName="project_logic_project_identity_id_key" tableName="project_logic"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-11">
+        <addUniqueConstraint columnNames="project_identity_id" constraintName="project_plan_project_identity_id_key" tableName="project_plan"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-12">
+        <addUniqueConstraint columnNames="project_identity_id" constraintName="project_strategy_project_identity_id_key" tableName="project_strategy"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-13">
+        <addUniqueConstraint columnNames="project_identity_id" constraintName="project_study_project_identity_id_key" tableName="project_study"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-14">
+        <addUniqueConstraint columnNames="project_identity_id" constraintName="project_zone_project_identity_id_key" tableName="project_zone"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-15">
+        <addUniqueConstraint columnNames="districs_id" constraintName="uk5pkc3cegpaa147jx31nf6nwwi" tableName="project_identity_districs"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-16">
+        <addUniqueConstraint columnNames="districts_id" constraintName="uk61brc7g1s06mudfhw73infdxa" tableName="project_identity_districts"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-17">
+        <createTable tableName="activity">
+            <column name="component_id" type="BIGINT"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="activity_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-18">
+        <createTable tableName="admissibility_criteria">
+            <column name="admissibility_grid_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="admissibility_criteria_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="requirement_level" type="TEXT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-19">
+        <createTable tableName="admissibility_grid">
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="admissibility_grid_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-20">
+        <createTable tableName="article_medias">
+            <column name="article_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="media_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-21">
+        <createTable tableName="articles">
+            <column name="is_active" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="is_private" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="articles_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="long_description" type="TEXT"/>
+            <column name="picture" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="short_description" type="TEXT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-22">
+        <createTable tableName="autorisation">
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="autorisation_pkey"/>
+            </column>
+            <column name="project_study_id" type="BIGINT"/>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="observation" type="VARCHAR(255)"/>
+            <column name="validateur" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-23">
+        <createTable tableName="budget_section">
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="budget_section_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-24">
+        <createTable tableName="category">
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="category_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-25">
+        <createTable tableName="category_envergure">
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="category_envergure_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-26">
+        <createTable tableName="category_risk">
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="category_risk_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-27">
+        <createTable tableName="component">
+            <column name="is_sub_component" type="BOOLEAN"/>
+            <column name="component_id" type="BIGINT"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="component_pkey"/>
+            </column>
+            <column name="project_id" type="BIGINT"/>
+            <column name="project_plan_id" type="BIGINT"/>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-28">
+        <createTable tableName="component_logic">
+            <column name="cout" type="BIGINT"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="component_logic_pkey"/>
+            </column>
+            <column name="project_logic" type="BIGINT"/>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-29">
+        <createTable tableName="deanships">
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="delegation_id" type="BIGINT"/>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="deanships_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-30">
+        <createTable tableName="delegations">
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="governorate_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="delegations_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-31">
+        <createTable tableName="device">
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="device_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-32">
+        <createTable tableName="districts">
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="districts_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-33">
+        <createTable tableName="economic_nature">
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="economic_nature_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-34">
+        <createTable tableName="finance_source">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="finance_source_pkey"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="devise" type="VARCHAR(255)"/>
+            <column name="montant" type="VARCHAR(255)"/>
+            <column name="monant_dinars" type="VARCHAR(255)"/>
+            <column name="statut" type="VARCHAR(255)"/>
+            <column name="taux_echange" type="VARCHAR(255)"/>
+            <column name="type" type="VARCHAR(255)"/>
+            <column name="project_plan_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-35">
+        <createTable tableName="financial_source">
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="financial_source_pkey"/>
+            </column>
+            <column name="monant_dinars" type="BIGINT"/>
+            <column name="montant" type="BIGINT"/>
+            <column name="project_plan_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="taux_echange" type="BIGINT"/>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bailleur" type="VARCHAR(255)"/>
+            <column name="devise" type="VARCHAR(255)"/>
+            <column name="statut" type="VARCHAR(255)"/>
+            <column name="type" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-36">
+        <createTable tableName="funding_source">
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="funding_source_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-37">
+        <createTable tableName="funding_source_type">
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="funding_source_type_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-38">
+        <createTable tableName="governorates">
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="district_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="governorates_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-39">
+        <createTable tableName="linked_project">
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="linked_project_pkey"/>
+            </column>
+            <column name="project_zone_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="project_code" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-40">
+        <createTable tableName="linked_project_entity">
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="linked_project_entity_pkey"/>
+            </column>
+            <column name="project_zone_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="project_code" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-41">
+        <createTable tableName="media">
+            <column name="size" type="FLOAT4"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="media_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="extention" type="VARCHAR(255)"/>
+            <column name="source" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-42">
+        <createTable tableName="ministers">
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="ministers_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-43">
+        <createTable tableName="organisations">
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="organisations_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-44">
+        <createTable tableName="pnd">
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pnd_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-45">
+        <createTable tableName="pnd_axis">
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pnd_axis_pkey"/>
+            </column>
+            <column name="pnd_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-46">
+        <createTable tableName="project_identity">
+            <column name="simep" type="BOOLEAN"/>
+            <column name="category_envergure_id" type="BIGINT"/>
+            <column name="category_id" type="BIGINT"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="project_identity_pkey"/>
+            </column>
+            <column name="minister_id" type="BIGINT"/>
+            <column name="sector_id" type="BIGINT"/>
+            <column name="typology_id" type="BIGINT"/>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="management_unitname" type="VARCHAR(255)"/>
+            <column name="minister_name" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="organisation" type="VARCHAR(255)"/>
+            <column name="po_email" type="VARCHAR(255)"/>
+            <column name="po_name" type="VARCHAR(255)"/>
+            <column name="po_phone" type="VARCHAR(255)"/>
+            <column name="project_manager_email" type="VARCHAR(255)"/>
+            <column name="project_manager_name" type="VARCHAR(255)"/>
+            <column name="project_manager_phone" type="VARCHAR(255)"/>
+            <column name="responsible_email" type="VARCHAR(255)"/>
+            <column name="responsible_name" type="VARCHAR(255)"/>
+            <column name="responsible_phone" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-47">
+        <createTable tableName="project_identity_deanship">
+            <column name="deanship_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="project_identity_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-48">
+        <createTable tableName="project_identity_delegation">
+            <column name="delegation_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="project_identity_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-49">
+        <createTable tableName="project_identity_district">
+            <column name="district_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="project_identity_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-50">
+        <createTable tableName="project_identity_governorate">
+            <column name="governorate_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="project_identity_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-51">
+        <createTable tableName="project_risk">
+            <column name="category_risk_id" type="BIGINT"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="project_risk_pkey"/>
+            </column>
+            <column name="project_identity_id" type="BIGINT"/>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(50)"/>
+            <column name="gravity" type="VARCHAR(255)"/>
+            <column name="mitigation" type="VARCHAR(255)"/>
+            <column name="probability" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-52">
+        <createTable tableName="project_scale">
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="project_scale_pkey"/>
+            </column>
+            <column name="maximum_budget" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="minimum_budget" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="project_identity_id" type="BIGINT"/>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-53">
+        <createTable tableName="project_scale_study">
+            <column name="project_scale_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="study_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-54">
+        <createTable tableName="project_validation">
+            <column name="submission_date" type="date"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="project_validation_pkey"/>
+            </column>
+            <column name="project_id" type="BIGINT"/>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="additional_information" type="VARCHAR(255)"/>
+            <column name="author" type="VARCHAR(255)"/>
+            <column name="document_name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-55">
+        <createTable tableName="project_zone_deanship">
+            <column name="deanship_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="project_zone_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-56">
+        <createTable tableName="project_zone_delegation">
+            <column name="delegation_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="project_zone_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-57">
+        <createTable tableName="project_zone_district">
+            <column name="district_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="project_zone_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-58">
+        <createTable tableName="project_zone_governorate">
+            <column name="governorate_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="project_zone_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-59">
+        <createTable tableName="project_zone_linked_project_entity">
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="project_zone_linked_project_entity_pkey"/>
+            </column>
+            <column name="project_zone_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="project_code" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-60">
+        <createTable tableName="projects">
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="simep_date" type="date"/>
+            <column name="status" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="projects_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="observation" type="TEXT"/>
+            <column name="simep_code" type="TEXT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-61">
+        <createTable tableName="roles">
+            <column name="is_active" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="roles_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-62">
+        <createTable tableName="rubrique">
+            <column name="amount" type="BIGINT"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="rubrique_pkey"/>
+            </column>
+            <column name="project_plan_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-63">
+        <createTable tableName="sector">
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="sector_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-64">
+        <createTable tableName="stakeholder">
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="stakeholder_pkey"/>
+            </column>
+            <column name="project_zone_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="TEXT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-65">
+        <createTable tableName="strategy">
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="strategy_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-66">
+        <createTable tableName="strategy_axis">
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="strategy_axis_pkey"/>
+            </column>
+            <column name="strategy_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-67">
+        <createTable tableName="study">
+            <column name="realisation_date" type="date"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="study_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="state" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-68">
+        <createTable tableName="study_for_project">
+            <column name="realisation_date" type="date"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="study_for_project_pkey"/>
+            </column>
+            <column name="project_study_id" type="BIGINT"/>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="state" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-69">
+        <createTable tableName="study_satate">
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="study_satate_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-70">
+        <createTable tableName="typologies">
+            <column name="is_active" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="typologies_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code" type="VARCHAR(255)"/>
+            <column name="description" type="TEXT"/>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-71">
+        <createTable tableName="user_roles">
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="user_roles_pkey"/>
+            </column>
+            <column name="role_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-72">
+        <createTable tableName="users">
+            <column name="account_non_locked" type="BOOLEAN"/>
+            <column name="credentials_non_expired" type="BOOLEAN"/>
+            <column name="enabled" type="BOOLEAN"/>
+            <column name="is_account_non_expired" type="BOOLEAN"/>
+            <column name="created_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="users_pkey"/>
+            </column>
+            <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="firstname" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lastname" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(60)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-73">
+        <addForeignKeyConstraint baseColumnNames="minister_id" baseTableName="project_identity" constraintName="fk2irk6s8px3rgi41g7s23xjs69" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="ministers" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-74">
+        <addForeignKeyConstraint baseColumnNames="project_identity_id" baseTableName="project_study" constraintName="fk2r8ma7swkigcxye4nglf9if79" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project_identity" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-75">
+        <addForeignKeyConstraint baseColumnNames="component_id" baseTableName="component" constraintName="fk392h67pj66vhpg5sd9w9siles" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="component" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-76">
+        <addForeignKeyConstraint baseColumnNames="project_zone_id" baseTableName="linked_project" constraintName="fk3a5fpidro1ctkt885wxctll44" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project_zone" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-77">
+        <addForeignKeyConstraint baseColumnNames="project_plan_id" baseTableName="funding_tranches" constraintName="fk3ma7dfhuvib0xo133fjwunubo" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project_plan" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-78">
+        <addForeignKeyConstraint baseColumnNames="project_study_id" baseTableName="study_for_project" constraintName="fk3qipy3vwt0kkvtg2pxjjautmg" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project_study" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-79">
+        <addForeignKeyConstraint baseColumnNames="pnd_axis_id" baseTableName="project_strategy" constraintName="fk4805jojrqkkm0eyr8r6fvuk4w" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="pnd_axis" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-80">
+        <addForeignKeyConstraint baseColumnNames="component_id" baseTableName="activity" constraintName="fk4fa5fv569rxxcbwoybmp47apo" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="component" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-81">
+        <addForeignKeyConstraint baseColumnNames="delegation_id" baseTableName="deanships" constraintName="fk4g0uekiiafcl4su6mlm9p51qq" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="delegations" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-82">
+        <addForeignKeyConstraint baseColumnNames="project_identity_id" baseTableName="project_logic" constraintName="fk63b1sowb9o4o4m1dh78ldidr0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project_identity" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-83">
+        <addForeignKeyConstraint baseColumnNames="project_zone_id" baseTableName="stakeholder" constraintName="fk6des0wn48p5ls1t2xghyq3y51" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project_zone" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-84">
+        <addForeignKeyConstraint baseColumnNames="project_zone_id" baseTableName="project_zone_district" constraintName="fk75dn6k4jppupx646bnkvkqu1f" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project_zone" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-85">
+        <addForeignKeyConstraint baseColumnNames="article_id" baseTableName="article_medias" constraintName="fk7o808mwc44xop34uxxoboj0ef" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="articles" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-86">
+        <addForeignKeyConstraint baseColumnNames="project_plan_id" baseTableName="financial_source" constraintName="fk7opd7lrdcoywmsp14cmcp4e8y" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project_plan" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-87">
+        <addForeignKeyConstraint baseColumnNames="category_id" baseTableName="project_identity" constraintName="fk7tx78mrkf17yvldjgb1v0cbbi" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="category" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-88">
+        <addForeignKeyConstraint baseColumnNames="category_envergure_id" baseTableName="project_identity" constraintName="fk8xpo9mcm1hyug0y3nhveb25c3" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="category_envergure" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-89">
+        <addForeignKeyConstraint baseColumnNames="project_study_id" baseTableName="autorisation" constraintName="fk9uq51x8287anl0mtf989o9y1a" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project_study" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-90">
+        <addForeignKeyConstraint baseColumnNames="project_zone_id" baseTableName="project_zone_governorate" constraintName="fka194ri79u9remfqnnhh5r2aho" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project_zone" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-91">
+        <addForeignKeyConstraint baseColumnNames="project_identity_id" baseTableName="project_scale" constraintName="fkao2siyra1vlvxvosbkrppnbnn" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project_identity" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-92">
+        <addForeignKeyConstraint baseColumnNames="project_id" baseTableName="component" constraintName="fkaqb785wxb1hvgw161icrgt8an" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="projects" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-93">
+        <addForeignKeyConstraint baseColumnNames="project_identity_id" baseTableName="project_plan" constraintName="fkbaqwf9ko2yo84oqr3pwjf4wng" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project_identity" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-94">
+        <addForeignKeyConstraint baseColumnNames="sector_id" baseTableName="project_identity" constraintName="fkblf9cf28pgao67p8k7y5bt76v" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="sector" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-95">
+        <addForeignKeyConstraint baseColumnNames="project_identity_id" baseTableName="project_risk" constraintName="fkcjju81c51r6ehr4frasca8jeo" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project_identity" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-96">
+        <addForeignKeyConstraint baseColumnNames="project_plan_id" baseTableName="rubrique" constraintName="fkcov070vigu089g3wcgcae6ahk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project_plan" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-97">
+        <addForeignKeyConstraint baseColumnNames="project_zone_id" baseTableName="project_zone_deanship" constraintName="fkd3lf4oe349vmugk6blck5uiif" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project_zone" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-98">
+        <addForeignKeyConstraint baseColumnNames="delegation_id" baseTableName="project_zone_delegation" constraintName="fkecrfsc0w78yr66faaihcu6jnf" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="delegations" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-99">
+        <addForeignKeyConstraint baseColumnNames="project_zone_id" baseTableName="project_zone_delegation" constraintName="fkee9r5x8en1vl6lfbmyhaqy34e" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project_zone" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-100">
+        <addForeignKeyConstraint baseColumnNames="pnd_id" baseTableName="pnd_axis" constraintName="fkeq3a6r6dvs4tcwmexku0loai5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="pnd" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-101">
+        <addForeignKeyConstraint baseColumnNames="project_identity_id" baseTableName="project_strategy" constraintName="fkf6ymx4xv10nq67wnrvl1xjb0t" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project_identity" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-102">
+        <addForeignKeyConstraint baseColumnNames="typology_id" baseTableName="project_identity" constraintName="fkf902m0id7mm25mev0b4eou0mq" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="typologies" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-103">
+        <addForeignKeyConstraint baseColumnNames="strategy_id" baseTableName="strategy_axis" constraintName="fkg6k42yoc3tacvfew8cvfwjele" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="strategy" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-104">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user_roles" constraintName="fkh8ciramu9cc9q3qcqiv4ue8a6" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="roles" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-105">
+        <addForeignKeyConstraint baseColumnNames="project_scale_id" baseTableName="project_scale_study" constraintName="fkh8k3q59163ia70333pytrytky" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project_scale" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-106">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_roles" constraintName="fkhfh9dx7w3ubf1co1vdev94g3f" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-107">
+        <addForeignKeyConstraint baseColumnNames="district_id" baseTableName="governorates" constraintName="fkhwicdy6sumigqtrjeurabka9j" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="districts" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-108">
+        <addForeignKeyConstraint baseColumnNames="pnd_id" baseTableName="project_strategy" constraintName="fkimik8kwkvboq9lmr3uonl27ib" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="pnd" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-109">
+        <addForeignKeyConstraint baseColumnNames="project_plan_id" baseTableName="component" constraintName="fkjvsinrbu14o5frkoje04styu1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project_plan" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-110">
+        <addForeignKeyConstraint baseColumnNames="category_risk_id" baseTableName="project_risk" constraintName="fkk49smxp1wq02pl52dmqba7stw" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="category_risk" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-111">
+        <addForeignKeyConstraint baseColumnNames="governorate_id" baseTableName="project_zone_governorate" constraintName="fkk54ry3fedcmaetp1vjbh3pwym" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="governorates" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-112">
+        <addForeignKeyConstraint baseColumnNames="project_logic" baseTableName="component_logic" constraintName="fkkl2exn6m0wtpomgsjl4575k5a" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project_logic" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-113">
+        <addForeignKeyConstraint baseColumnNames="media_id" baseTableName="article_medias" constraintName="fkkwtnafumjrn41rbjk6n526ko1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="media" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-114">
+        <addForeignKeyConstraint baseColumnNames="project_identity_id" baseTableName="project_zone" constraintName="fkl1exi5gucjgyihhf60f5ggsud" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="project_identity" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-115">
+        <addForeignKeyConstraint baseColumnNames="governorate_id" baseTableName="delegations" constraintName="fko5gv0dl5krd9rb5wf7l62lur5" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="governorates" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-116">
+        <addForeignKeyConstraint baseColumnNames="admissibility_grid_id" baseTableName="admissibility_criteria" constraintName="fkofdmpe6yqtragixly1n7yaeyy" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="admissibility_grid" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-117">
+        <addForeignKeyConstraint baseColumnNames="study_id" baseTableName="project_scale_study" constraintName="fkon2n2lkqhaljg28jx9dlfybej" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="study" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-118">
+        <addForeignKeyConstraint baseColumnNames="deanship_id" baseTableName="project_zone_deanship" constraintName="fkopqpskm9er6il15ceto6ffptp" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="deanships" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-119">
+        <addForeignKeyConstraint baseColumnNames="district_id" baseTableName="project_zone_district" constraintName="fkpi3qinmd28a1rlpubve7rohs7" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="districts" validate="true"/>
+    </changeSet>
+    <changeSet author="Abdou (generated)" id="1730726137924-120">
+        <addForeignKeyConstraint baseColumnNames="project_id" baseTableName="project_validation" constraintName="fkrdt3n9wkrpf1jpgtirs5c7q4g" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="projects" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

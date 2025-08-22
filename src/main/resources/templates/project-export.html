@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Fiche-projet</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 20px; 
+            line-height: 1.4;
+            color: #333;
+        }
+        
+        .header-banner {
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header-banner h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .header-banner .subtitle {
+            font-size: 18px;
+            margin: 10px 0 5px 0;
+        }
+        
+        .header-banner .code {
+            font-size: 16px;
+            margin: 5px 0;
+        }
+        
+        .header-banner .generation-date {
+            font-size: 14px;
+            margin: 5px 0 0 0;
+            font-style: italic;
+        }
+        
+        .project-info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        
+        .project-info-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            vertical-align: top;
+        }
+        
+        .project-info-table .label {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            width: 200px;
+        }
+        
+        .section {
+            margin: 30px 0;
+            page-break-inside: avoid;
+        }
+        
+        .section h2 {
+            background-color: #34495e;
+            color: white;
+            padding: 12px 15px;
+            margin: 0 0 20px 0;
+            font-size: 18px;
+        }
+        
+        .section-content {
+            padding: 0 15px;
+        }
+        
+        .description-box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            background-color: #f9f9f9;
+            min-height: 80px;
+        }
+        
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        .info-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            vertical-align: top;
+        }
+        
+        .info-table .label {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            width: 180px;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        .data-table th,
+        .data-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        .data-table th {
+            background-color: #34495e;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .data-table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .two-column {
+            display: table;
+            width: 100%;
+        }
+        
+        .two-column .column {
+            display: table-cell;
+            width: 50%;
+            padding: 0 10px;
+        }
+        
+        .list-item {
+            margin: 5px 0;
+        }
+        
+        @media print {
+            body { margin: 10px; }
+            .section { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Banner -->
+    <div class="header-banner">
+        <h1>TARTIB 2.0</h1>
+        <div class="subtitle">Fiche-projet : <span th:text="${project.projectTitle}">Intitulé du projet</span></div>
+        <div class="code">Code projet : <span th:text="${project.projectCode}">Code projet</span></div>
+        <div class="generation-date">Date de génération : <span th:text="${project.generationDate}">Date</span></div>
+    </div>
+
+    <!-- Project Information Table -->
+    <table class="project-info-table">
+        <tr>
+            <td class="label">Code projet</td>
+            <td th:text="${project.projectCode}">Code</td>
+        </tr>
+        <tr>
+            <td class="label">Intitulé du projet</td>
+            <td th:text="${project.projectTitle}">Titre</td>
+        </tr>
+        <tr>
+            <td class="label">Ministère</td>
+            <td th:text="${project.ministry}">Ministère</td>
+        </tr>
+        <tr>
+            <td class="label">Structure porteuse</td>
+            <td th:text="${project.porteuseStructure}">Structure</td>
+        </tr>
+        <tr>
+            <td class="label">Responsable</td>
+            <td th:text="${project.responsible}">Responsable</td>
+        </tr>
+ 	<tr>
+              <td class="label">Contact</td>
+              <td th:text="${project.contact}">Contact</td>
+        </tr>
+    </table>
+
+    <!-- Description Section -->
+    <div class="section">
+        <h2>Description</h2>
+        <div class="section-content">
+            <div class="description-box" th:text="${project.description}">
+                Description du projet...
+            </div>
+        </div>
+    </div>
+
+    <!-- Location Section -->
+    <div class="section" th:if="${project.location}">
+        <h2>Localisation</h2>
+        <div class="section-content">
+            <table class="info-table">
+                <tr>
+                    <td class="label">District</td>
+                    <td th:text="${project.location.district}">District</td>
+                </tr>
+                <tr>
+                    <td class="label">Gouvernorat</td>
+                    <td>
+                        <span th:each="gov, iterStat : ${project.location.gouvernorats}">
+                            <span th:text="${gov}">Gouvernorat</span>
+                            <span th:if="${!iterStat.last}"> ; </span>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Délégations</td>
+                    <td>
+                        <span th:each="delegation, iterStat : ${project.location.delegations}">
+                            <span th:text="${delegation}">Délégation</span>
+                            <span th:if="${!iterStat.last}"> ; </span>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Description de la zone d'influence</td>
+                    <td th:text="${project.location.zoneInfluenceDescription}">Description</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Intervention Logic Section -->
+    <div class="section" th:if="${project.interventionLogic}">
+        <h2>Logique d'intervention</h2>
+        <div class="section-content">
+            <table class="info-table">
+                <tr>
+                    <td class="label">Objectif général</td>
+                    <td th:text="${project.interventionLogic.generalObjective}">Objectif général</td>
+                </tr>
+                <tr>
+                    <td class="label">Objectifs spécifiques</td>
+                    <td>
+                        <div th:each="objective : ${project.interventionLogic.specificObjectives}" class="list-item">
+                            • <span th:text="${objective}">Objectif spécifique</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Résultats attendus</td>
+                    <td>
+                        <div th:each="result : ${project.interventionLogic.expectedResults}" class="list-item">
+                            • <span th:text="${result}">Résultat attendu</span>
+                        </div>
+                    </td>
+                </tr>
+               
+            </table>
+        </div>
+    </div>
+
+    <!-- Components Section -->
+    <div class="section" th:if="${project.components}">
+        <h2>Composantes</h2>
+        <div class="section-content">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Composante</th>
+                        <th>Coût</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="component : ${project.components}">
+                        <td th:text="${component.componentName}">Nom de la composante</td>
+                        <td th:text="${component.cost}">Coût</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Work Plan Section -->
+    <div class="section" th:if="${project.workPlan}">
+        <h2>Plan de travail</h2>
+        <div class="section-content">
+            <table class="info-table">
+                <tr>
+                    <td class="label">Année début</td>
+                    <td th:text="${project.workPlan.startYear}">Année de début</td>
+                </tr>
+                <tr>
+                    <td class="label">Année fin</td>
+                    <td th:text="${project.workPlan.endYear}">Année de fin</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Financing Plan Section -->
+    <div class="section" th:if="${project.financingPlan}">
+        <h2>Plan de financement</h2>
+        <div class="section-content">
+            <table class="info-table" style="margin-bottom: 20px;">
+                <tr>
+                    <td class="label">Coût total</td>
+                    <td th:text="${project.financingPlan.totalCost}">Coût total</td>
+                </tr>
+            </table>
+            
+            <table class="data-table" th:if="${project.financingPlan.financingSources}">
+                <thead>
+                    <tr>
+                        <th>Source de financement</th>
+                        <th>Montant total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="source : ${project.financingPlan.financingSources}">
+                        <td th:text="${source.source}">Source</td>
+                        <td th:text="${source.totalAmount}">Montant</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Risk Analysis Section -->
+    <div class="section" th:if="${project.riskAnalysis}">
+        <h2>Analyse de risques</h2>
+        <div class="section-content">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Catégorie</th>
+                        <th>Risque</th>
+                        <th>Probabilité</th>
+                        <th>Gravité</th>
+                        <th>Mesures de mitigation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="risk : ${project.riskAnalysis}">
+                        <td th:text="${risk.category}">Catégorie</td>
+                        <td th:text="${risk.risk}">Risque</td>
+                        <td th:text="${risk.probability}">Probabilité</td>
+                        <td th:text="${risk.severity}">Gravité</td>
+                        <td th:text="${risk.mitigationMeasures}">Mesures</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Studies Section -->
+    <div class="section" th:if="${project.studies}">
+        <h2>Etudes réalisées</h2>
+        <div class="section-content">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Intitulé</th>
+                        <th>Date de réalisation</th>
+                        <th>Observations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="study : ${project.studies}">
+                        <td th:text="${study.title}">Titre</td>
+                        <td th:text="${study.realizationDate}">Date</td>
+                        <td th:text="${study.observations}">Observations</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

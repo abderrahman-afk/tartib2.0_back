@@ -1,0 +1,27 @@
+{"properties": [
+  {
+    "name": "security.jwt.secret-key",
+    "type": "java.lang.String",
+    "description": "A description for 'security.jwt.secret-key'"
+  },
+  {
+    "name": "security.jwt.expiration-time",
+    "type": "java.lang.String",
+    "description": "A description for 'security.jwt.expiration-time'"
+  },
+  {
+    "name": "spring.liquibase.baseline-on-migrate",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.liquibase.baseline-on-migrate'"
+  },
+  {
+    "name": "app.upload.nomenclature-docs",
+    "type": "java.lang.String",
+    "description": "A description for 'app.upload.nomenclature-docs'"
+  },
+  {
+    "name": "app.upload.classification-docs",
+    "type": "java.lang.String",
+    "description": "A description for 'app.upload.classification-docs'"
+  }
+]}

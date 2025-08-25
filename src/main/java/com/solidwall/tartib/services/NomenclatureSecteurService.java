@@ -37,6 +37,7 @@ import com.solidwall.tartib.repositories.NomenclatureSecteurRepository;
 import com.solidwall.tartib.repositories.SecteurRepository;
 import com.solidwall.tartib.repositories.MinisterRepository;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 @Service
@@ -44,8 +45,19 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class NomenclatureSecteurService  implements NomenclatureSecteurImplementation {
     
-    @Value("${app.upload.nomenclature-docs}")
+    @Value("${app.upload.nomenclautre-sectoriel-docs}")
     private String uploadPath;
+
+    @PostConstruct
+    public void init() {
+        try {
+            Files.createDirectories(Path.of(uploadPath));
+            log.info("Upload directory created/verified: {}", uploadPath);
+        } catch (IOException e) {
+            log.error("Could not create upload directory: {}", uploadPath, e);
+            throw new RuntimeException("Could not create upload directory", e);
+        }
+    }
     
     @Autowired
     private NomenclatureSecteurRepository nomenclatureRepository;

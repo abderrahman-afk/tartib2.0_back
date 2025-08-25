@@ -1,5 +1,7 @@
 package com.solidwall.tartib.dto.autorisation;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +12,7 @@ public class CreateDto {
     private String name;
     private String validateur;
     private String observation;
+    private MultipartFile justificationFile;
 
 
 

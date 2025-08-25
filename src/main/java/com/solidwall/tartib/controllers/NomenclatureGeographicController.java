@@ -9,11 +9,15 @@ import org.springframework.web.bind.annotation.*;
 import com.solidwall.tartib.core.helpers.CustomResponseHelper;
 import com.solidwall.tartib.dto.nomenclatureGeographic.*;
 import com.solidwall.tartib.entities.NomenclatureGeographicEntity;
+import com.solidwall.tartib.core.exceptions.NotFoundException;
 import com.solidwall.tartib.implementations.NomenclatureGeographicImplementation;
+import com.solidwall.tartib.services.NomenclatureGeographicService;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 
 @RestController
 @RequestMapping("nomenclature-geo")
@@ -21,6 +25,9 @@ public class NomenclatureGeographicController {
 
     @Autowired
     private NomenclatureGeographicImplementation nomenclatureGeographicImplementation;
+
+    @Autowired
+    private NomenclatureGeographicService nomenclatureGeographicService;
 
     @PostMapping(value = "create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<CustomResponseHelper<NomenclatureGeographicEntity>> create(
@@ -37,7 +44,7 @@ public class NomenclatureGeographicController {
         return ResponseEntity.status(response.getStatus()).body(response);
             }
 
-    @PutMapping("update/{id}")
+    @PutMapping(value = "update/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<CustomResponseHelper<NomenclatureGeographicEntity>> update(
             @PathVariable Long id,
             @ModelAttribute UpdateNomenclatureGeographicDto data) {
@@ -140,5 +147,27 @@ public class NomenclatureGeographicController {
             .build();
 
         return ResponseEntity.status(response.getStatus()).body(response);
+    }
+
+    @GetMapping("/download/{id}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable Long id) {
+        try {
+            Resource fileResource = nomenclatureGeographicService.downloadJustificationFile(id);
+
+            NomenclatureGeographicEntity nomenclature = nomenclatureGeographicImplementation.getOne(id);
+
+            String contentType = nomenclatureGeographicService.determineContentType(nomenclature.getJustificationPath());
+
+            return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" +
+                        fileResource.getFilename() + "\"")
+                .body(fileResource);
+
+        } catch (NotFoundException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
     }
 }

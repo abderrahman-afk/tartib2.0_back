@@ -51,4 +51,6 @@ public class ProjectPlanEntity extends AbstractBaseEntity {
     @OneToMany(mappedBy = "projectPlan", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<RubriqueEntity> rubriques = new ArrayList<>();
 
+    @Column(name = "plan_financement", length = 1000)
+    private String planFinancement;
 }

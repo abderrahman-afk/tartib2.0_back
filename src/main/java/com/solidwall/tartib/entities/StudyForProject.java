@@ -39,6 +39,7 @@ public class StudyForProject extends AbstractBaseEntity {
     @Column(name = "realisation_date", nullable = true)
     private Date realisationDate;
 
-    
+    @Column(name = "study_file", length = 1000)
+    private String studyFile;
 
 }

@@ -1,5 +1,7 @@
 package com.solidwall.tartib.dto.studyforproject;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Getter;
 import lombok.Setter;
 import java.sql.Date;
@@ -13,4 +15,6 @@ public class UpdateDto {
     private String description;
 
     private Date realisationDate;
+
+    private MultipartFile studyFile;
 }

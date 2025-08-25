@@ -16,8 +16,8 @@ public class UpdateDto {
     private String generalObjective;
     private String specific_objective;
     private String results;
-    private String documentCadre;
+    private org.springframework.web.multipart.MultipartFile documentCadreFile;
     private String yearStart;
     private String yearEnd;
-    private String documentPlanTravail;
+    private org.springframework.web.multipart.MultipartFile documentPlanTravailFile;
 }

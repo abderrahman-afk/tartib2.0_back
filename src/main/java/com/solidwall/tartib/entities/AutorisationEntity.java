@@ -30,5 +30,8 @@ public class AutorisationEntity extends AbstractBaseEntity {
     private String validateur;
     @Column(name = "observation", length = 255, nullable = true)
     private String observation;
+
+    @Column(name = "justification_path", length = 1000)
+    private String justificationPath;
      
 }

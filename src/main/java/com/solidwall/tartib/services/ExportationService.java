@@ -3,6 +3,7 @@ package com.solidwall.tartib.services;
 import com.solidwall.tartib.dto.exportation.AdminEvaluationScoresToExportDto;
 import com.solidwall.tartib.dto.exportation.ClassificationResultsExportDto;
 import com.solidwall.tartib.dto.exportation.ClassificationResultsExportDto.ProjectResultExportDto;
+import com.solidwall.tartib.dto.exportation.ProjectDetailsToExportDto;
 import com.solidwall.tartib.dto.exportation.ProjectToExportDto;
 import com.solidwall.tartib.entities.*;
 import com.solidwall.tartib.enums.ProjectStaut;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -68,6 +70,8 @@ public class ExportationService implements ExportationImplementation {
     private GeneratedClassificationRepository generatedClassificationRepository;
     @Autowired
     private CnapValidationReserveRepository cnapValidationReserveRepository;
+    @Autowired
+    private ProjectClassementRepository projectClassementRepository;
 
     // export project FP
     public ProjectToExportDto exportProjectData(long projectId) {
@@ -390,6 +394,144 @@ public class ExportationService implements ExportationImplementation {
     }
 
     // helper
+    public List<ProjectDetailsToExportDto> exportAllProjectsDetails(Integer year) {
+        List<ProjectIdentityEntity> projects = projectIdentityRepository.findAll();
+
+        if (year != null) {
+            projects = projects.stream()
+                .filter(p -> {
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(p.getCreatedAt());
+                    return cal.get(Calendar.YEAR) == year;
+                })
+                .collect(Collectors.toList());
+        }
+
+        return projects.stream()
+            .map(this::mapToProjectDetailsToExportDto)
+            .collect(Collectors.toList());
+    }
+
+    private ProjectDetailsToExportDto mapToProjectDetailsToExportDto(ProjectIdentityEntity projectIdentity) {
+        ProjectToExportDto projectData = exportProjectData(projectIdentity.getId());
+        AdminEvaluationScoresToExportDto adminEvaluationData = exportAdminEvaluationScores(projectIdentity.getId());
+        List<ProjectClassementEntity> classementList = projectClassementRepository.findByProjectIdentity(projectIdentity);
+        Optional<ProjectClassementEntity> classementOpt = classementList.stream().findFirst();
+
+        ProjectDetailsToExportDto.AdminEvaluationScoresToExportDto adminEvaluationDto = null;
+        if (adminEvaluationData != null) {
+            adminEvaluationDto = ProjectDetailsToExportDto.AdminEvaluationScoresToExportDto.builder()
+                .projectCode(adminEvaluationData.getProjectCode())
+                .projectName(adminEvaluationData.getProjectName())
+                .evaluationGridName(adminEvaluationData.getEvaluationGridName())
+                .evaluationGridReference(adminEvaluationData.getEvaluationGridReference())
+                .adminGlobalScore(adminEvaluationData.getAdminGlobalScore())
+                .originalGlobalScore(adminEvaluationData.getOriginalGlobalScore())
+                .generationDate(adminEvaluationData.getGenerationDate())
+                .components(mapComponentScoreDtos(adminEvaluationData.getComponents()))
+                .build();
+        }
+
+        return ProjectDetailsToExportDto.builder()
+            .projectCode(projectData.getProjectCode())
+            .projectTitle(projectData.getProjectTitle())
+            .ministry(projectData.getMinistry())
+            .porteuseStructure(projectData.getPorteuseStructure())
+            .responsible(projectData.getResponsible())
+            .description(projectData.getDescription())
+            .generationDate(projectData.getGenerationDate())
+            .contact(projectData.getContact())
+            .location(projectData.getLocation() != null ?
+                ProjectDetailsToExportDto.LocationToExportDto.builder()
+                    .district(projectData.getLocation().getDistrict())
+                    .gouvernorats(projectData.getLocation().getGouvernorats())
+                    .delegations(projectData.getLocation().getDelegations())
+                    .zoneInfluenceDescription(projectData.getLocation().getZoneInfluenceDescription())
+                    .build()
+                : null)
+            .interventionLogic(projectData.getInterventionLogic() != null ?
+                ProjectDetailsToExportDto.InterventionLogicToExportDto.builder()
+                    .generalObjective(projectData.getInterventionLogic().getGeneralObjective())
+                    .specificObjectives(projectData.getInterventionLogic().getSpecificObjectives())
+                    .expectedResults(projectData.getInterventionLogic().getExpectedResults())
+                    .build()
+                : null)
+            .components(projectData.getComponents() != null ?
+                projectData.getComponents().stream().map(c ->
+                    ProjectDetailsToExportDto.ComponentToExportDto.builder()
+                        .componentName(c.getComponentName())
+                        .cost(c.getCost())
+                        .build()
+                ).collect(Collectors.toList()) : null)
+            .workPlan(projectData.getWorkPlan() != null ?
+                ProjectDetailsToExportDto.WorkPlanToExportDto.builder()
+                    .startYear(projectData.getWorkPlan().getStartYear())
+                    .endYear(projectData.getWorkPlan().getEndYear())
+                    .build()
+                : null)
+            .financingPlan(projectData.getFinancingPlan() != null ?
+                ProjectDetailsToExportDto.FinancingPlanToExportDto.builder()
+                    .totalCost(projectData.getFinancingPlan().getTotalCost())
+                    .financingSources(projectData.getFinancingPlan().getFinancingSources().stream().map(fs ->
+                        ProjectDetailsToExportDto.FinancingPlanToExportDto.FinancingSourceToExportDto.builder()
+                            .source(fs.getSource())
+                            .totalAmount(fs.getTotalAmount())
+                            .build()
+                    ).collect(Collectors.toList()))
+                    .build()
+                : null)
+            .riskAnalysis(projectData.getRiskAnalysis() != null ?
+                projectData.getRiskAnalysis().stream().map(r ->
+                    ProjectDetailsToExportDto.RiskAnalysisToExportDto.builder()
+                        .category(r.getCategory())
+                        .risk(r.getRisk())
+                        .probability(r.getProbability())
+                        .severity(r.getSeverity())
+                        .mitigationMeasures(r.getMitigationMeasures())
+                        .build()
+                ).collect(Collectors.toList()) : null)
+            .studies(projectData.getStudies() != null ?
+                projectData.getStudies().stream().map(s ->
+                    ProjectDetailsToExportDto.StudyToExportDto.builder()
+                        .title(s.getTitle())
+                        .realizationDate(s.getRealizationDate())
+                        .updateDate(s.getUpdateDate())
+                        .observations(s.getObservations())
+                        .build()
+                ).collect(Collectors.toList()) : null)
+            .adminEvaluation(adminEvaluationDto)
+            .rank(classementOpt.map(ProjectClassementEntity::getRang).orElse(null))
+            .bonifiedScore(classementOpt.map(ProjectClassementEntity::getScoreBonifie).orElse(null))
+            .build();
+    }
+
+    private List<ProjectDetailsToExportDto.ComponentScoreDto> mapComponentScoreDtos(List<AdminEvaluationScoresToExportDto.ComponentScoreDto> componentScores) {
+        if (componentScores == null) {
+            return null;
+        }
+        return componentScores.stream()
+            .map(cs -> ProjectDetailsToExportDto.ComponentScoreDto.builder()
+                .componentName(cs.getComponentName())
+                .adminComponentScore(cs.getAdminComponentScore())
+                .originalComponentScore(cs.getOriginalComponentScore())
+                .criteria(mapCriteriaScoreDtos(cs.getCriteria()))
+                .build())
+            .collect(Collectors.toList());
+    }
+
+    private List<ProjectDetailsToExportDto.CriteriaScoreDto> mapCriteriaScoreDtos(List<AdminEvaluationScoresToExportDto.CriteriaScoreDto> criteriaScores) {
+        if (criteriaScores == null) {
+            return null;
+        }
+        return criteriaScores.stream()
+            .map(cs -> ProjectDetailsToExportDto.CriteriaScoreDto.builder()
+                .criteriaName(cs.getCriteriaName())
+                .adminCriteriaScore(cs.getAdminCriteriaScore())
+                .originalCriteriaScore(cs.getOriginalCriteriaScore())
+                .build())
+            .collect(Collectors.toList());
+    }
+
     public String formatMoney(Long amount) {
         if (amount == null || amount == 0)
             return "0 DT";

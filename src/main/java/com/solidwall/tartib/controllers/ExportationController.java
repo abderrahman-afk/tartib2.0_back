@@ -11,11 +11,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import java.util.List;
 import com.solidwall.tartib.core.helpers.CustomResponseHelper;
 import com.solidwall.tartib.dto.exportation.AdminEvaluationScoresToExportDto;
 import com.solidwall.tartib.dto.exportation.ClassificationResultsExportDto;
+import com.solidwall.tartib.dto.exportation.ProjectDetailsToExportDto;
 import com.solidwall.tartib.dto.exportation.ProjectToExportDto;
 import com.solidwall.tartib.implementations.ExportationImplementation;
 import com.solidwall.tartib.services.PdfGenerationService;
@@ -171,10 +173,39 @@ public class ExportationController {
     // classificaiton 
     // Add this method to your ExportationController.java
 
-@GetMapping("/classification-results")
-public ResponseEntity<CustomResponseHelper<ClassificationResultsExportDto>> exportClassificationResults() {
+    @GetMapping("/all-projects-details")
+    public ResponseEntity<CustomResponseHelper<List<ProjectDetailsToExportDto>>> exportAllProjectsDetails(@RequestParam(required = false) Integer year) {
+        log.info("REST request to export all projects details");
+        try {
+            List<ProjectDetailsToExportDto> exportData = exportationImplementation.exportAllProjectsDetails(year);
+            CustomResponseHelper<List<ProjectDetailsToExportDto>> response = CustomResponseHelper
+                .<List<ProjectDetailsToExportDto>>builder()
+                .body(exportData)
+                .message("All projects details exported successfully")
+                .error(false)
+                .status(HttpStatus.OK.value())
+                .timestamp(new Date())
+                .build();
+            log.info("Successfully exported all projects details");
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            log.error("Error exporting all projects details: {}", e.getMessage());
+            CustomResponseHelper<List<ProjectDetailsToExportDto>> errorResponse = CustomResponseHelper
+                .<List<ProjectDetailsToExportDto>>builder()
+                .body(null)
+                .message("Failed to export all projects details: " + e.getMessage())
+                .error(true)
+                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .timestamp(new Date())
+                .build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        }
+    }
+
+    @GetMapping("/classification-results")
+    public ResponseEntity<CustomResponseHelper<ClassificationResultsExportDto>> exportClassificationResults() {
     
-    log.info("REST request to export latest classification results");
+        log.info("REST request to export latest classification results");
     
     try {
         ClassificationResultsExportDto exportData = exportationImplementation.exportClassificationResults();

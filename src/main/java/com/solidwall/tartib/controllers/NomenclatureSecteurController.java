@@ -40,7 +40,7 @@ public class NomenclatureSecteurController {
         return ResponseEntity.status(response.getStatus()).body(response);
             }
 
-    @PutMapping("update/{id}")
+    @PutMapping(value = "update/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<CustomResponseHelper<NomenclatureSecteurEntity>> update(
             @PathVariable Long id,
             @ModelAttribute UpdateNomenclatureSecteurDto data) {

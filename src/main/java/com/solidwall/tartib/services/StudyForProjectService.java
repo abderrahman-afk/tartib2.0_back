@@ -6,7 +6,6 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,11 +14,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.solidwall.tartib.core.exceptions.FileStorageException;
 import com.solidwall.tartib.core.exceptions.NotFoundException;
-import com.solidwall.tartib.dto.autorisation.CreateDto;
-import com.solidwall.tartib.dto.autorisation.UpdateDto;
-import com.solidwall.tartib.entities.AutorisationEntity;
-import com.solidwall.tartib.implementations.AutorisationImplementation;
-import com.solidwall.tartib.repositories.AutorisationRepository;
+import com.solidwall.tartib.dto.studyforproject.CreateDto;
+import com.solidwall.tartib.dto.studyforproject.UpdateDto;
+import com.solidwall.tartib.entities.StudyForProject;
+import com.solidwall.tartib.implementations.StudyForProjectImplementation;
+import com.solidwall.tartib.repositories.StudyForProjectRepository;
 
 import java.net.MalformedURLException;
 import org.springframework.core.io.Resource;
@@ -31,13 +30,13 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Transactional
 @Slf4j
-public class AutorisationService implements AutorisationImplementation {
+public class StudyForProjectService implements StudyForProjectImplementation {
 
-    @Value("${app.upload.project-autorisation-docs}")
+    @Value("${app.upload.project-study-docs}")
     private String uploadPath;
 
     @Autowired
-    private AutorisationRepository autorisationRepository;
+    private StudyForProjectRepository studyForProjectRepository;
 
     @PostConstruct
     public void init() {
@@ -51,58 +50,60 @@ public class AutorisationService implements AutorisationImplementation {
     }
 
     @Override
-    public List<AutorisationEntity> findAll() {
-        return autorisationRepository.findAll();
+    public List<StudyForProject> findAll() {
+        return studyForProjectRepository.findAll();
     }
 
     @Override
-    public AutorisationEntity getOne(Long id) {
-        return autorisationRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Autorisation not found"));
+    public StudyForProject getOne(Long id) {
+        return studyForProjectRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("StudyForProject not found"));
     }
 
     @Override
-    public AutorisationEntity findOne(Map<String, String> data) {
+    public StudyForProject findOne(Map<String, String> data) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'findOne'");
     }
 
     @Override
-    public AutorisationEntity create(CreateDto data) {
-        AutorisationEntity autorisation = new AutorisationEntity();
-        autorisation.setName(data.getName());
-        autorisation.setValidateur(data.getValidateur());
-        autorisation.setObservation(data.getObservation());
+    public StudyForProject create(CreateDto data) {
+        StudyForProject studyForProject = new StudyForProject();
+        studyForProject.setName(data.getName());
+        studyForProject.setState(data.getState());
+        studyForProject.setDescription(data.getDescription());
+        studyForProject.setRealisationDate(data.getRealisationDate());
 
-        if (data.getJustificationFile() != null) {
-            String filePath = handleFileUpload(data.getJustificationFile(), autorisation.getName());
-            autorisation.setJustificationPath(filePath);
+        if (data.getStudyFile() != null) {
+            String filePath = handleFileUpload(data.getStudyFile(), studyForProject.getName());
+            studyForProject.setStudyFile(filePath);
         }
 
-        return autorisationRepository.save(autorisation);
+        return studyForProjectRepository.save(studyForProject);
     }
 
     @Override
-    public AutorisationEntity update(Long id, UpdateDto data) {
-        AutorisationEntity autorisation = getOne(id);
-        autorisation.setName(data.getName());
-        autorisation.setValidateur(data.getValidateur());
-        autorisation.setObservation(data.getObservation());
+    public StudyForProject update(Long id, UpdateDto data) {
+        StudyForProject studyForProject = getOne(id);
+        studyForProject.setName(data.getName());
+        studyForProject.setState(data.getState());
+        studyForProject.setDescription(data.getDescription());
+        studyForProject.setRealisationDate(data.getRealisationDate());
 
-        if (data.getJustificationFile() != null) {
-            deleteFileIfExists(autorisation.getJustificationPath());
-            String filePath = handleFileUpload(data.getJustificationFile(), autorisation.getName());
-            autorisation.setJustificationPath(filePath);
+        if (data.getStudyFile() != null) {
+            deleteFileIfExists(studyForProject.getStudyFile());
+            String filePath = handleFileUpload(data.getStudyFile(), studyForProject.getName());
+            studyForProject.setStudyFile(filePath);
         }
 
-        return autorisationRepository.save(autorisation);
+        return studyForProjectRepository.save(studyForProject);
     }
 
     @Override
     public void delete(Long id) {
-        AutorisationEntity autorisation = getOne(id);
-        deleteFileIfExists(autorisation.getJustificationPath());
-        autorisationRepository.delete(autorisation);
+        StudyForProject studyForProject = getOne(id);
+        deleteFileIfExists(studyForProject.getStudyFile());
+        studyForProjectRepository.delete(studyForProject);
     }
 
     private String handleFileUpload(MultipartFile file, String name) {
@@ -111,7 +112,7 @@ public class AutorisationService implements AutorisationImplementation {
             String extension = originalFilename != null
                     ? originalFilename.substring(originalFilename.lastIndexOf(".") + 1)
                     : "";
-            String fileName = String.format("autorisation_%s_%d.%s", name.replace(" ", "_"),
+            String fileName = String.format("study_%s_%d.%s", name.replace(" ", "_"),
                     System.currentTimeMillis(), extension);
             Path targetLocation = Path.of(uploadPath, fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
@@ -131,15 +132,15 @@ public class AutorisationService implements AutorisationImplementation {
         }
     }
 
-    public Resource downloadJustificationFile(Long id) {
+    public Resource downloadStudyFile(Long id) {
         try {
-            AutorisationEntity autorisation = getOne(id);
+            StudyForProject studyForProject = getOne(id);
 
-            if (autorisation.getJustificationPath() == null || autorisation.getJustificationPath().isEmpty()) {
-                throw new NotFoundException("No justification file found for this autorisation");
+            if (studyForProject.getStudyFile() == null || studyForProject.getStudyFile().isEmpty()) {
+                throw new NotFoundException("No study file found for this project");
             }
 
-            Path filePath = Path.of(uploadPath, autorisation.getJustificationPath());
+            Path filePath = Path.of(uploadPath, studyForProject.getStudyFile());
             Resource resource = new UrlResource(filePath.toUri());
 
             if (!resource.exists() || !resource.isReadable()) {

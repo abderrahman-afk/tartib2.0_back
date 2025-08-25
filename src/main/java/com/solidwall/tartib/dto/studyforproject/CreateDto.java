@@ -1,5 +1,7 @@
 package com.solidwall.tartib.dto.studyforproject;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,4 +17,6 @@ public class CreateDto {
     private String description;
 
     private Date realisationDate;
+
+    private MultipartFile studyFile;
 }

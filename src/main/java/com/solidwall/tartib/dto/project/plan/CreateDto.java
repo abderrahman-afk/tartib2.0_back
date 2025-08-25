@@ -26,4 +26,6 @@ public class CreateDto {
   private String observation;
 
   private Long montantAnnuel;
+
+  private org.springframework.web.multipart.MultipartFile planFinancementFile;
 }

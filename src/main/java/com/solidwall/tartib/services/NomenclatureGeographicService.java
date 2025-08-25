@@ -32,6 +32,10 @@ import com.solidwall.tartib.repositories.GeographicCategoryRepository;
 import com.solidwall.tartib.repositories.GovernorateRepository;
 import com.solidwall.tartib.repositories.NomenclatureGeographicRepository;
 
+import java.net.MalformedURLException;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 @Service
@@ -39,8 +43,19 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class NomenclatureGeographicService  implements NomenclatureGeographicImplementation {
     
-    @Value("${app.upload.nomenclature-docs}")
+    @Value("${app.upload.nomenclautre-geographic-docs}")
     private String uploadPath;
+
+    @PostConstruct
+    public void init() {
+        try {
+            Files.createDirectories(Path.of(uploadPath));
+            log.info("Upload directory created/verified: {}", uploadPath);
+        } catch (IOException e) {
+            log.error("Could not create upload directory: {}", uploadPath, e);
+            throw new RuntimeException("Could not create upload directory", e);
+        }
+    }
     
     @Autowired
     private NomenclatureGeographicRepository nomenclatureRepository;
@@ -348,5 +363,39 @@ public class NomenclatureGeographicService  implements NomenclatureGeographicImp
                 default -> true;
             };
         });
+    }
+
+    public Resource downloadJustificationFile(Long id) {
+        try {
+            NomenclatureGeographicEntity nomenclature = nomenclatureRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("Nomenclature not found"));
+
+            if (nomenclature.getJustificationPath() == null || nomenclature.getJustificationPath().isEmpty()) {
+                throw new NotFoundException("No justification file found for this nomenclature");
+            }
+
+            Path filePath = Path.of(uploadPath, nomenclature.getJustificationPath());
+            Resource resource = new UrlResource(filePath.toUri());
+
+            if (!resource.exists() || !resource.isReadable()) {
+                throw new NotFoundException("File not found or not readable");
+            }
+
+            return resource;
+        } catch (MalformedURLException e) {
+            throw new FileStorageException("Error: " + e.getMessage());
+        }
+    }
+
+    public String determineContentType(String filename) {
+        if (filename.toLowerCase().endsWith(".pdf")) {
+            return "application/pdf";
+        } else if (filename.toLowerCase().endsWith(".doc")) {
+            return "application/msword";
+        } else if (filename.toLowerCase().endsWith(".docx")) {
+            return "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+        } else {
+            return "application/octet-stream";
+        }
     }
 }
